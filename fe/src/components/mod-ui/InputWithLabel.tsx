@@ -13,7 +13,7 @@ export const InputWithLabel: React.FC<InputWithLabelProps> = ({
     const id: string = useId();
 
     return (
-        <div className="grid w-full max-w-sm items-center gap-1.5">
+        <div className="grid w-full items-center gap-1.5">
             {label && <Label htmlFor={id}>{label}</Label>}
             <Input id={id} {...props} />
         </div>
