@@ -1,5 +1,13 @@
+import DashboardHeader from "./DashboardHeader";
+import LastOperationts from "./LastOperationts";
+
 export const DashboardPage = () => {
-    return <div className="text-amber-600">Hello world</div>;
+    return (
+        <section className="w-full h-full flex flex-col">
+            <DashboardHeader />
+            <LastOperationts />
+        </section>
+    );
 };
 
 export default DashboardPage;
