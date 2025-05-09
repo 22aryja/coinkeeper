@@ -7,7 +7,7 @@ const LoginPage = lazy(() => import("@/pages/login/LoginPage"));
 export const AppRouter = () => {
     const routes = [
         {
-            path: "/dashboard",
+            path: "/",
             element: <Outlet />,
             children: [
                 {
