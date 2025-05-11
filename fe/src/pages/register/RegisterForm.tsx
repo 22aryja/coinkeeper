@@ -1,11 +1,16 @@
 import InputWithLabel from "@/components/mod-ui/InputWithLabel";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+    const navigate = useNavigate();
+
     const handleSubmit = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ): void => {
         e.preventDefault();
+        localStorage.setItem("coinkeeper-user", "User");
+        navigate("/");
     };
 
     return (
