@@ -25,7 +25,7 @@ export const DashboardHeader = () => {
     );
 
     return (
-        <header className="flex w-full rounded-b-4xl justify-around border shadow-2xs bg-accent-foreground p-2">
+        <header className="flex w-full rounded-b-4xl justify-around border shadow-2xs bg-accent-foreground p-2 lg:rounded-b-none">
             {sections.map(({ label, value }: HeaderSection) => (
                 <div key={label} className="flex flex-col gap-2 items-center">
                     <h1 className="text-accent text-lg font-semibold">

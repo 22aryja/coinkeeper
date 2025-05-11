@@ -16,17 +16,17 @@ const LastOperationts = () => {
     return (
         <div className="w-full flex flex-col gap-4 justify-end">
             <h1 className="text-lg font-semibold pl-4">Last Operations</h1>
-            <div className="flex flex-col gap-2 bg-accent-foreground p-4 rounded-t-4xl">
-                <div className="flex w-full justify-between text-accent border-b border-solid border-border p-2">
+            <div className="flex flex-col gap-2 p-4 border border-solid border-border rounded-2xl">
+                <div className="flex w-full justify-between border-b border-solid border-border p-2">
                     <h2>Type</h2>
                     <span>Sum</span>
                     <span>Date</span>
                 </div>
-                <div className="flex flex-col gap-2 overflow-y-auto max-h-64">
+                <div className="flex flex-col overflow-y-auto max-h-64">
                     {dummy.map((item, index) => (
                         <div
                             key={index}
-                            className="flex w-full justify-between text-accent"
+                            className="flex w-full justify-between p-4 border-b border-solid border-border"
                         >
                             <h2>{item.type}</h2>
                             <span>{item.value}</span>

@@ -16,7 +16,7 @@ export const DashboardPage = () => {
         <>
             <section className="w-full h-full flex flex-col">
                 <DashboardHeader />
-                <div className="w-full h-full flex flex-col justify-between">
+                <div className="w-full h-full flex flex-col justify-between p-4">
                     <div className="flex w-full h-full justify-center items-center">
                         <Button onClick={handleClick}>
                             <Plus className="w-4 h-4" />
