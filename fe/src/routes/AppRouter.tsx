@@ -5,6 +5,7 @@ import { Outlet, useRoutes } from "react-router-dom";
 const LoginPage = lazy(() => import("@/pages/login/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/register/RegisterPage"));
 const SettingsPage = lazy(() => import("@/pages/settings/SettingsPage"));
+const StatsPage = lazy(() => import("@/pages/stats/StatsPage"));
 
 export const AppRouter = () => {
     const routes = [
@@ -23,6 +24,10 @@ export const AppRouter = () => {
                 {
                     path: "/register",
                     element: <RegisterPage />,
+                },
+                {
+                    path: "/stats",
+                    element: <StatsPage />,
                 },
                 {
                     path: "/settings",

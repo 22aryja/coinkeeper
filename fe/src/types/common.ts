@@ -7,3 +7,8 @@ export type DropdownOption = {
     label: string;
     onClick: () => void;
 };
+
+export type ChartData = {
+    category: string;
+    value: number;
+}
