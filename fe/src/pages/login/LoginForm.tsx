@@ -1,38 +1,41 @@
 import InputWithLabel from "@/components/mod-ui/InputWithLabel";
 import { Button } from "@/components/ui/button";
+import { api } from "@/requests/requests";
+import type { Credentials } from "@/types/auth";
 import { useState, type ChangeEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-type LoginFields = { login: string; password: string };
-
 export const LoginForm = () => {
-    const [input, setInput] = useState<LoginFields>({
-        login: "",
+    const [input, setInput] = useState<Credentials>({
+        email: "",
         password: "",
     });
     const navigate = useNavigate();
 
     const handleChange =
-        (type: keyof LoginFields) => (e: ChangeEvent<HTMLInputElement>) => {
+        (type: keyof Credentials) => (e: ChangeEvent<HTMLInputElement>) => {
             setInput((prev) => ({
                 ...prev,
                 [type]: e.target.value,
             }));
         };
 
+    const login = async () => {
+        const success: string = await api.login(input);
+        localStorage.setItem("coinkeeper-user", success);
+        navigate("/");
+    };
+
     const handleSubmit = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ): void => {
         e.preventDefault();
-        if (input.login === "User" && input.password === "User123") {
-            localStorage.setItem("coinkeeper-user", "User");
-            navigate("/");
-        }
+        login();
     };
 
     return (
         <form className="flex flex-col gap-4 w-full p-4 md:w-1/3">
-            <InputWithLabel label="Login" onChange={handleChange("login")} />
+            <InputWithLabel label="Email" onChange={handleChange("email")} />
             <InputWithLabel
                 label="Password"
                 type="password"

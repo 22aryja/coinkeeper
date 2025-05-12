@@ -1,16 +1,36 @@
 import InputWithLabel from "@/components/mod-ui/InputWithLabel";
 import { Button } from "@/components/ui/button";
+import { api } from "@/requests/requests";
+import type { Credentials, User } from "@/types/auth";
+import { useState, type ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+    const [input, setInput] = useState<Credentials>({
+        email: "",
+        password: "",
+    });
     const navigate = useNavigate();
+
+    const handleChange =
+        (type: keyof Credentials) => (e: ChangeEvent<HTMLInputElement>) => {
+            setInput((prev) => ({
+                ...prev,
+                [type]: e.target.value,
+            }));
+        };
+
+    const register = async (): Promise<void> => {
+        const user: User = await api.register(input);
+        localStorage.setItem("coinkeeper-user", JSON.stringify(user));
+        navigate("/");
+    };
 
     const handleSubmit = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ): void => {
         e.preventDefault();
-        localStorage.setItem("coinkeeper-user", "User");
-        navigate("/");
+        register();
     };
 
     return (
@@ -20,9 +40,17 @@ const RegisterForm = () => {
                 <InputWithLabel label="Last Name" />
             </div>
 
-            <InputWithLabel label="Login" />
+            <InputWithLabel
+                label="Email"
+                type="email"
+                onChange={handleChange("email")}
+            />
 
-            <InputWithLabel label="Password" type="password" />
+            <InputWithLabel
+                label="Password"
+                type="password"
+                onChange={handleChange("password")}
+            />
             <InputWithLabel label="Confirm password" type="password" />
 
             <Button onClick={handleSubmit} type="submit">
