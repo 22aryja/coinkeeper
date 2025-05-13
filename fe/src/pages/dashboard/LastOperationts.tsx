@@ -1,8 +1,8 @@
-import { api } from "@/requests/requests";
-import type { CreateTransaction, Transaction } from "@/types/transaction";
-import { memo, useEffect, useState } from "react";
 import Delete from "@/assets/icons/ui/delete.svg?react";
 import Edit from "@/assets/icons/ui/edit.svg?react";
+import { api } from "@/requests/requests";
+import type { Transaction } from "@/types/transaction";
+import { memo, useEffect, useState } from "react";
 import TransactionModal from "./TransactionModal";
 
 // const dummyTransactions: Transaction[] = [
@@ -49,11 +49,10 @@ import TransactionModal from "./TransactionModal";
 // ];
 
 const LastOperationts = memo(() => {
-    const [transactions, setTransactions] =
-        useState<Transaction[]>([]);
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [open, setOpen] = useState<boolean>(false);
     const [selectedTransaction, setSelectedTransaction] = useState<
-        CreateTransaction | undefined
+        Transaction | undefined
     >(undefined);
 
     useEffect(() => {
@@ -65,13 +64,18 @@ const LastOperationts = memo(() => {
         setTransactions(transactions);
     };
 
+    const deleteTransaction = async (id: number) => {
+        await api.deleteTransaction(id);
+    };
+
     const handleEdit = (transaction: Transaction) => () => {
         setOpen(true);
-        const { id, date, ...rest } = transaction;
+        const { date, ...rest } = transaction;
         setSelectedTransaction({ date: new Date(date), ...rest });
     };
 
     const handleDelete = (id: number) => () => {
+        deleteTransaction(id);
         const filteredTransaction: Transaction[] = transactions.filter(
             (transaction: Transaction) => transaction.id !== id
         );

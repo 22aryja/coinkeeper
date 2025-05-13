@@ -6,12 +6,12 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/requests/requests";
 import type { Category } from "@/types/categories";
 import type { DropdownOption, StateControl } from "@/types/common";
-import type { CreateTransaction } from "@/types/transaction";
+import type { CreateTransaction, Transaction } from "@/types/transaction";
 import { useEffect, useMemo, useReducer, useState, type FC } from "react";
 
 interface TransactionModalProps {
     stateControl: StateControl;
-    transaction?: CreateTransaction;
+    transaction?: Transaction;
 }
 
 const reducer = (
@@ -57,6 +57,11 @@ const TransactionModal: FC<TransactionModalProps> = ({
         const transaction = await api.createTransaction(store);
     };
 
+    const editTransaction = async () => {
+        const { id, ...rest } = transaction!;
+        const editedTransaction = await api.updateTransaction(id, rest);
+    };
+
     const getCategories = async () => {
         const cats: Category[] = await api.getCategories();
         setCategories(cats);
@@ -98,8 +103,12 @@ const TransactionModal: FC<TransactionModalProps> = ({
         [categories, store.categoryId]
     );
 
-    const handleCreate = () => {
-        createTransaction();
+    const handleClick = () => {
+        if (transaction) {
+            editTransaction();
+        } else {
+            createTransaction();
+        }
         stateControl.setOpen(false);
     };
 
@@ -150,7 +159,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
                     />
                 </div>
                 <InputWithLabel label="Comment (Optional)" />
-                <Button onClick={handleCreate}>
+                <Button onClick={handleClick}>
                     {transaction ? "Edit" : "Create"}
                 </Button>
             </div>
