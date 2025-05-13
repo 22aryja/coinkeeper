@@ -5,11 +5,12 @@ import {
     type ChartConfig,
 } from "@/components/ui/chart";
 import type { ChartData } from "@/types/common";
+import type { Stats } from "@/types/stats";
 import { useMemo, type FC } from "react";
 import { Cell, Pie, PieChart } from "recharts";
 
 interface PieChartStatsProps {
-    data: ChartData[];
+    data: Stats[];
 }
 
 const colorPalette = [
@@ -20,7 +21,7 @@ const colorPalette = [
     "hsl(var(--color-chart-5))",
 ];
 
-const configureData = (data: ChartData[]): ChartConfig => {
+const configureData = (data: Stats[]): ChartConfig => {
     const config: ChartConfig = {};
 
     data.forEach((item, index) => {

@@ -1,7 +1,7 @@
 import type { Credentials, User } from "@/types/auth";
 import type { Category } from "@/types/categories";
 import type { Stats } from "@/types/stats";
-import type { Balance, Transaction } from "@/types/transaction";
+import type { Balance, CreateTransaction, Transaction } from "@/types/transaction";
 import axios from "axios";
 
 const API = axios.create({
@@ -28,7 +28,7 @@ export const api = {
         return data;
     },
 
-    createCategory: async (category: { name: string }): Promise<Category> => {
+    createCategory: async (category: { id: number, name: string, color: string, icon: string }): Promise<Category> => {
         const { data } = await API.post<Category>("/categories", category);
         return data;
     },
@@ -43,7 +43,7 @@ export const api = {
     },
 
     createTransaction: async (
-        tx: Omit<Transaction, "id">
+        tx: CreateTransaction
     ): Promise<Transaction> => {
         const { data } = await API.post<Transaction>("/transactions", tx);
         return data;
@@ -51,7 +51,7 @@ export const api = {
 
     updateTransaction: async (
         id: number,
-        tx: Omit<Transaction, "id">
+        tx: CreateTransaction
     ): Promise<Transaction> => {
         const { data } = await API.put<Transaction>(`/transactions/${id}`, tx);
         return data;
