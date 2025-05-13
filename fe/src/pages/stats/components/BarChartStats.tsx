@@ -4,7 +4,6 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
-import type { ChartData } from "@/types/common";
 import type { Stats } from "@/types/stats";
 import { useMemo, type FC } from "react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";

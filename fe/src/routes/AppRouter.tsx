@@ -1,6 +1,6 @@
 import DashboardPage from "@/pages/dashboard/DashboardPage";
 import { lazy } from "react";
-import { useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 import PrivateRoutes from "./PrivateRoutes";
 import PublicRoute from "./PublicRoute";
 
@@ -17,6 +17,10 @@ export const AppRouter = () => {
             children: [
                 {
                     index: true,
+                    element: <Navigate to="/dashboard" replace />,
+                },
+                {
+                    path: "/dashboard",
                     element: <DashboardPage />,
                 },
                 {
